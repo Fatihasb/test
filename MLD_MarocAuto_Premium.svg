@@ -1,0 +1,145 @@
+<svg viewBox="0 0 980 640" xmlns="http://www.w3.org/2000/svg" width="980" height="640">
+<defs>
+  <style>
+    text { font-family: Arial, sans-serif; }
+    .tbl   { fill: #f4f6fb; stroke: #2c3e7a; stroke-width: 1.8; }
+    .thead { fill: #2c3e7a; }
+    .attr  { font-size: 10px; fill: #222; }
+    .pk    { font-size: 10px; fill: #1a5276; font-weight: bold; text-decoration: underline; }
+    .fk    { font-size: 10px; fill: #922b21; font-style: italic; }
+    .link  { stroke: #555; stroke-width: 1.3; fill: none; }
+    .card  { font-size: 9.5px; fill: #2c3e7a; font-weight: bold; }
+  </style>
+  <marker id="arr" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+    <path d="M0,0 L0,7 L7,3.5 z" fill="#555"/>
+  </marker>
+</defs>
+<rect width="980" height="640" fill="white"/>
+<text x="490" y="24" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a2e">MLD — Modèle Logique des Données — MarocAuto Premium</text>
+
+<!-- ═══ TABLES ═══ -->
+
+<!-- users -->
+<rect class="tbl" x="340" y="40" width="260" height="168" rx="3"/>
+<rect class="thead" x="340" y="40" width="260" height="24" rx="3"/>
+<text x="470" y="56" text-anchor="middle" font-size="11" font-weight="bold" fill="white">users</text>
+<line x1="340" y1="64" x2="600" y2="64" stroke="#2c3e7a" stroke-width="1"/>
+<text class="pk"   x="352" y="79">id_utilisateur  INT  PK  AUTO_INCREMENT</text>
+<text class="attr" x="352" y="93">nom  VARCHAR(100)  NOT NULL</text>
+<text class="attr" x="352" y="107">prenom  VARCHAR(100)  NOT NULL</text>
+<text class="attr" x="352" y="121">email  VARCHAR(150)  UNIQUE  NOT NULL</text>
+<text class="attr" x="352" y="135">mot_de_passe  VARCHAR(255)  NOT NULL</text>
+<text class="attr" x="352" y="149">role  ENUM(client,agence,admin)  NOT NULL</text>
+<text class="attr" x="352" y="163">statut  TINYINT(1)  DEFAULT 1</text>
+<text class="attr" x="352" y="177">date_creation  DATETIME  DEFAULT NOW()</text>
+
+<!-- agencies -->
+<rect class="tbl" x="20" y="280" width="270" height="150" rx="3"/>
+<rect class="thead" x="20" y="280" width="270" height="24" rx="3"/>
+<text x="155" y="296" text-anchor="middle" font-size="11" font-weight="bold" fill="white">agencies</text>
+<line x1="20" y1="304" x2="290" y2="304" stroke="#2c3e7a" stroke-width="1"/>
+<text class="pk"   x="32" y="319">id_agence  INT  PK  AUTO_INCREMENT</text>
+<text class="fk"   x="32" y="333">id_utilisateur  INT  FK  → users</text>
+<text class="attr" x="32" y="347">nom_agence  VARCHAR(150)  NOT NULL</text>
+<text class="attr" x="32" y="361">adresse  TEXT</text>
+<text class="attr" x="32" y="375">telephone  VARCHAR(20)</text>
+<text class="attr" x="32" y="389">description  TEXT</text>
+<text class="attr" x="32" y="403">logo  VARCHAR(255)</text>
+
+<!-- vehicles -->
+<rect class="tbl" x="340" y="280" width="270" height="222" rx="3"/>
+<rect class="thead" x="340" y="280" width="270" height="24" rx="3"/>
+<text x="475" y="296" text-anchor="middle" font-size="11" font-weight="bold" fill="white">vehicles</text>
+<line x1="340" y1="304" x2="610" y2="304" stroke="#2c3e7a" stroke-width="1"/>
+<text class="pk"   x="352" y="319">id_vehicule  INT  PK  AUTO_INCREMENT</text>
+<text class="fk"   x="352" y="333">id_agence  INT  FK  → agencies</text>
+<text class="attr" x="352" y="347">marque  VARCHAR(80)  NOT NULL</text>
+<text class="attr" x="352" y="361">modele  VARCHAR(80)  NOT NULL</text>
+<text class="attr" x="352" y="375">categorie  VARCHAR(60)</text>
+<text class="attr" x="352" y="389">annee  YEAR</text>
+<text class="attr" x="352" y="403">kilometrage  INT</text>
+<text class="attr" x="352" y="417">couleur  VARCHAR(40)</text>
+<text class="attr" x="352" y="431">prix_journalier  DECIMAL(10,2)  NOT NULL</text>
+<text class="attr" x="352" y="445">disponible  TINYINT(1)  DEFAULT 1</text>
+<text class="attr" x="352" y="459">description  TEXT</text>
+<text class="attr" x="352" y="473">date_ajout  DATETIME  DEFAULT NOW()</text>
+
+<!-- vehicle_images -->
+<rect class="tbl" x="660" y="280" width="300" height="96" rx="3"/>
+<rect class="thead" x="660" y="280" width="300" height="24" rx="3"/>
+<text x="810" y="296" text-anchor="middle" font-size="11" font-weight="bold" fill="white">vehicle_images</text>
+<line x1="660" y1="304" x2="960" y2="304" stroke="#2c3e7a" stroke-width="1"/>
+<text class="pk"   x="672" y="319">id_image  INT  PK  AUTO_INCREMENT</text>
+<text class="fk"   x="672" y="333">id_vehicule  INT  FK  → vehicles</text>
+<text class="attr" x="672" y="347">url_image  VARCHAR(255)  NOT NULL</text>
+<text class="attr" x="672" y="361">est_principale  TINYINT(1)  DEFAULT 0</text>
+
+<!-- reservations -->
+<rect class="tbl" x="660" y="420" width="300" height="180" rx="3"/>
+<rect class="thead" x="660" y="420" width="300" height="24" rx="3"/>
+<text x="810" y="436" text-anchor="middle" font-size="11" font-weight="bold" fill="white">reservations</text>
+<line x1="660" y1="444" x2="960" y2="444" stroke="#2c3e7a" stroke-width="1"/>
+<text class="pk"   x="672" y="459">id_reservation  INT  PK  AUTO_INCREMENT</text>
+<text class="fk"   x="672" y="473">id_utilisateur  INT  FK  → users</text>
+<text class="fk"   x="672" y="487">id_vehicule  INT  FK  → vehicles</text>
+<text class="attr" x="672" y="501">date_debut  DATE  NOT NULL</text>
+<text class="attr" x="672" y="515">date_fin  DATE  NOT NULL</text>
+<text class="attr" x="672" y="529">montant_total  DECIMAL(10,2)</text>
+<text class="attr" x="672" y="543">statut  ENUM(en_attente,confirmee,refusee,annulee,terminee)</text>
+<text class="attr" x="672" y="557">message_client  TEXT</text>
+<text class="attr" x="672" y="571">date_creation  DATETIME  DEFAULT NOW()</text>
+
+<!-- reviews -->
+<rect class="tbl" x="340" y="555" width="280" height="68" rx="3"/>
+<rect class="thead" x="340" y="555" width="280" height="24" rx="3"/>
+<text x="480" y="571" text-anchor="middle" font-size="11" font-weight="bold" fill="white">reviews</text>
+<line x1="340" y1="579" x2="620" y2="579" stroke="#2c3e7a" stroke-width="1"/>
+<text class="pk"   x="352" y="594">id_avis  INT  PK  AUTO_INCREMENT</text>
+<text class="fk"   x="352" y="608">id_reservation  INT  FK  UNIQUE  → reservations</text>
+<!-- note et commentaire sur même ligne pour gagner de la place -->
+
+<!-- ═══ RELATIONS (flèches FK → PK) ═══ -->
+
+<!-- agencies.id_utilisateur → users.id_utilisateur -->
+<line class="link" x1="155" y1="280" x2="155" y2="208" stroke="#555" stroke-width="1.3"/>
+<line class="link" x1="155" y1="208" x2="340" y2="122" stroke="#555" stroke-width="1.3" marker-end="url(#arr)"/>
+<text class="card" x="160" y="254">1</text>
+<text class="card" x="255" y="162">1</text>
+
+<!-- vehicles.id_agence → agencies.id_agence -->
+<line class="link" x1="352" y1="333" x2="290" y2="333" stroke="#555" stroke-width="1.3" marker-end="url(#arr)"/>
+<text class="card" x="340" y="328">N</text>
+<text class="card" x="295" y="328">1</text>
+
+<!-- vehicle_images.id_vehicule → vehicles.id_vehicule -->
+<line class="link" x1="660" y1="333" x2="610" y2="333" stroke="#555" stroke-width="1.3" marker-end="url(#arr)"/>
+<text class="card" x="648" y="328">N</text>
+<text class="card" x="614" y="328">1</text>
+
+<!-- reservations.id_utilisateur → users.id_utilisateur -->
+<line class="link" x1="760" y1="420" x2="760" y2="208" stroke="#555" stroke-width="1.3"/>
+<line class="link" x1="760" y1="208" x2="600" y2="150" stroke="#555" stroke-width="1.3" marker-end="url(#arr)"/>
+<text class="card" x="762" y="390">N</text>
+<text class="card" x="675" y="178">1</text>
+
+<!-- reservations.id_vehicule → vehicles.id_vehicule -->
+<line class="link" x1="660" y1="487" x2="610" y2="460" stroke="#555" stroke-width="1.3" marker-end="url(#arr)"/>
+<text class="card" x="636" y="480">N</text>
+<text class="card" x="614" y="452">1</text>
+
+<!-- reviews.id_reservation → reservations.id_reservation -->
+<line class="link" x1="620" y1="608" x2="660" y2="508" stroke="#555" stroke-width="1.3" marker-end="url(#arr)"/>
+<text class="card" x="622" y="590">1</text>
+<text class="card" x="650" y="522">1</text>
+
+<!-- ═══ LÉGENDE ═══ -->
+<rect x="20" y="455" width="295" height="82" rx="3" fill="#f8f9fa" stroke="#ccc" stroke-width="1"/>
+<text x="32" y="473" font-size="11" font-weight="bold" fill="#333">Légende</text>
+<text x="32" y="491" font-size="10" fill="#1a5276" font-weight="bold" text-decoration="underline">PK</text>
+<text x="50" y="491" font-size="10" fill="#333">= Clé primaire</text>
+<text x="32" y="507" font-size="10" fill="#922b21" font-style="italic">FK</text>
+<text x="50" y="507" font-size="10" fill="#333">= Clé étrangère</text>
+<line x1="32" y1="516" x2="60" y2="516" stroke="#555" stroke-width="1.3" marker-end="url(#arr)"/>
+<text x="68" y="520" font-size="10" fill="#333">= Référence FK → PK</text>
+<text x="32" y="532" font-size="10" fill="#333">Cardinalités indiquées sur les liens (1, N)</text>
+</svg>
